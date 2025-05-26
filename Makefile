@@ -1,7 +1,7 @@
 # Makefile for grok-lab project
 # Simple commands to run tests, examples, and common tasks
 
-.PHONY: help test example clean install lint all
+.PHONY: help test example clean install lint all scripts
 
 # Default target
 .DEFAULT_GOAL := help
@@ -10,7 +10,8 @@ help:
 	@echo "Available commands:"
 	@echo "  make test     - Run all tests"
 	@echo "  make example  - Run example usage"
-	@echo "  make all      - Run tests and example"
+	@echo "  make scripts  - Run example shell scripts"
+	@echo "  make all      - Run tests and examples"
 	@echo "  make clean    - Clean up __pycache__ and .pyc files"
 	@echo "  make install  - Install package in development mode"
 	@echo "  make lint     - Run basic code checks (if tools available)"
@@ -25,8 +26,20 @@ example:
 	@echo "Running example (will try to connect to API)..."
 	cd examples && python example_usage.py
 
-# Run both tests and example
-all: test example
+# Run shell script examples
+scripts:
+	@echo "Running shell script examples..."
+	@echo "Testing API key info..."
+	bash examples/api-key-info.sh | head -c 200 && echo ""
+	@echo "Testing chat completion..."
+	bash examples/chat.sh | head -c 200 && echo ""
+	@echo "Testing hello-waw..."
+	bash examples/hello-waw.sh | head -c 200 && echo ""
+	@echo "Testing digest script..."
+	python examples/digest.py | head -c 200 && echo ""
+
+# Run both tests and examples
+all: test example scripts
 
 # Clean up Python cache files
 clean:
