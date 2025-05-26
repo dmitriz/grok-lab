@@ -9,6 +9,8 @@ A lightweight Python library for interacting with Grok-3 API, providing easy acc
 - Automatic API key management
 - Ensures live mode for reliable responses
 - Configurable request parameters
+- Multiple implementation options (Python, JavaScript, Shell Script)
+- Performance-optimized versions with connection pooling
 
 ## Installation
 
@@ -67,6 +69,27 @@ Run the unit tests manually:
 ```bash
 python -m unittest grok_api_test.py -v
 ```
+
+## Performance Comparison
+
+The project includes multiple implementations for performance comparison:
+
+| Implementation | Speed | Use Case |
+|---------------|-------|----------|
+| `digest_optimized.py` | ~0.9s | **Production** (fastest with connection pooling) |
+| `digest.sh` | ~22s | **Development** (simple debugging) |
+| `digest.py` | ~24s | **Standard** (basic Python requests) |
+| `digest.js` | ~33s | **Integration** (Node.js applications) |
+
+```bash
+# Compare all implementations
+make digest-performance
+
+# Run specific optimized version
+make digest-optimized
+```
+
+See [PERFORMANCE_COMPARISON.md](PERFORMANCE_COMPARISON.md) for detailed analysis.
 
 ## License
 
