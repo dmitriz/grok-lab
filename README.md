@@ -21,13 +21,12 @@ pip install grok-lab
 ```python
 from grok_api import grok_live_response
 
-# Create a chat payload
+# Create a chat payload (model is set automatically)
 payload = {
   "messages": [
     {"role": "system", "content": "You are a helpful assistant."},
     {"role": "user", "content": "What is the capital of France?"}
-  ],
-  "model": "grok-3-latest"
+  ]
 }
 
 # Get a response
@@ -43,12 +42,30 @@ Store your Grok API key in a file named `grok_keys.env` in the `.secrets` direct
 GROK_API_KEY=your_api_key_here
 ```
 
-## Testing
+## Development
 
-Run the unit tests:
+Use the build script to run tests and examples:
 
 ```bash
-python -m unittest discover -s examples
+# Run all tests
+./build.sh test
+
+# Run example usage
+./build.sh example
+
+# Run both tests and example
+./build.sh all
+
+# Clean up cache files
+./build.sh clean
+```
+
+## Testing
+
+Run the unit tests manually:
+
+```bash
+python -m unittest grok_api_test.py -v
 ```
 
 ## License
