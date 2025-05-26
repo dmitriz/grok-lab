@@ -52,5 +52,14 @@ payload = {
     "model": "grok-3-latest"
 }
 
-response = requests.post(url, headers=headers, json=payload)
-print(response.json())
+try:
+    # Add timeout to prevent the script from hanging indefinitely
+    response = requests.post(url, headers=headers, json=payload, timeout=30)
+    print(response.json())
+except requests.exceptions.Timeout:
+    print("Request timed out. The API might be unresponsive.")
+except requests.exceptions.RequestException as e:
+    print(f"Error making request: {e}")
+except json.JSONDecodeError:
+    print(f"Error decoding response. Status code: {response.status_code}")
+    print(f"Response content: {response.text[:500]}")
