@@ -7,10 +7,9 @@ This directory contains example scripts for interacting with the Grok API.
 Before running these scripts, you need to set up your API keys:
 
 1. Make sure you have a `.secrets/grok_keys.env` file in the project root
-2. The file should contain your API keys in the following format:
+2. The file should contain your API key in the following format:
    ```
-   GROK_API_KEY=your-primary-api-key-here
-   GROK_API_KEY_MY=your-secondary-api-key-here
+   GROK_API_KEY=your-api-key-here
    ```
 
 ## Scripts
