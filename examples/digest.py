@@ -4,7 +4,7 @@ import json
 from pathlib import Path
 
 # Load a key from a .env-style file
-def load_key(key_name=None, file_path=None):
+def load_key(key_name, file_path):
     """Load a key from a .env-style file (format: KEY=VALUE)
     
     Args:
@@ -14,8 +14,6 @@ def load_key(key_name=None, file_path=None):
     Returns:
         The value of the key if found, otherwise None
     """
-    if not key_name or not file_path:
-        return None
         
     try:
         with open(file_path, 'r') as f:
