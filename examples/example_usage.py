@@ -3,6 +3,11 @@ Simple example demonstrating use of the grok_api module
 """
 
 import json
+import sys
+import os
+
+# Add parent directory to path to import grok_api
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from grok_api import grok_live_response
 
 def main():
