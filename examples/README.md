@@ -8,7 +8,8 @@ Before running these scripts, you need to set up your API keys:
 
 1. Make sure you have a `.secrets/grok_keys.env` file in the project root
 2. The file should contain your API key in the following format:
-   ```
+
+   ```env
    GROK_API_KEY=your-api-key-here
    ```
 
@@ -28,15 +29,11 @@ Before running these scripts, you need to set up your API keys:
 
 ## Usage
 
-Make sure the scripts are executable:
-```bash
-chmod +x *.sh
-```
+Run any script with bash:
 
-Then run any script:
 ```bash
-./api-key-info.sh
-./hello-waw.sh
-./chat-my.sh
+bash api-key-info.sh
+bash hello-waw.sh
+bash chat-my.sh
 python digest.py
 ```
