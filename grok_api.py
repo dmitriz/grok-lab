@@ -7,7 +7,6 @@ It handles API key management and request formatting according to Grok-3 API spe
 """
 
 import requests
-import json
 from pathlib import Path
 
 # Constants defined at the top of the file for better maintainability
