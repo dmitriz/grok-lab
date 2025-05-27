@@ -22,7 +22,7 @@ else
   start_time=$(date +%s%N)
 fi
 
-curl -s https://api.x.ai/v1/chat/completions \
+if ! response=$(curl -s https://api.x.ai/v1/chat/completions \
   -H "Content-Type: application/json" \
   -H "Authorization: Bearer $GROK_API_KEY" \
   -d '{
@@ -36,7 +36,11 @@ curl -s https://api.x.ai/v1/chat/completions \
     "mode": "auto"
   },
   "model": "grok-3-latest"
-}' | jq '.'
+}'); then
+    echo "Error: Failed to make API request"
+    exit 1
+fi
+echo "$response" | jq '.'
 
 if [[ "$(uname)" == "Darwin" ]]; then
   end_time=$(date +%s)
