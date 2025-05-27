@@ -80,6 +80,21 @@ def create_optimized_session():
     
     return session
 
+def make_timed_api_request(session, url, headers, payload):
+    """Make an API request and measure its execution time."""
+    print("Making optimized API request...")
+    start_time = time.time()
+    response = session.post(
+        url, 
+        headers=headers, 
+        json=payload, 
+        timeout=(10, 60),  # (connect timeout, read timeout)
+        stream=False
+    )
+    end_time = time.time()
+    elapsed_ms = (end_time - start_time) * 1000
+    return response, elapsed_ms
+
 def call_grok_api_optimized(api_key, payload):
     """Call the Grok API with optimized connection handling."""
     url = "https://api.x.ai/v1/chat/completions"
@@ -91,20 +106,10 @@ def call_grok_api_optimized(api_key, payload):
     session = create_optimized_session()
     
     try:
-        print("Making optimized API request...")
-        start_time = time.time()
-        response = session.post(
-            url, 
-            headers=headers, 
-            json=payload, 
-            timeout=(10, 60),  # (connect timeout, read timeout)
-            stream=False
-        )
-        end_time = time.time()
-        
+        response, elapsed_ms = make_timed_api_request(session, url, headers, payload)
         response.raise_for_status()
         result = response.json()
-        print(f"API call completed in {(end_time - start_time) * 1000:.0f}ms")
+        print(f"API call completed in {elapsed_ms:.0f}ms")
         return result
         
     finally:

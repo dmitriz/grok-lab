@@ -36,7 +36,7 @@ def load_key(key_name, file_path):
         if '=' in line and line.split('=', 1)[0].strip() == key_name:
           return line.split('=', 1)[1].strip()
     return None
-  except FileNotFoundError:
+  except OSError:
     return None
 
 def get_api_key():
@@ -73,9 +73,18 @@ def grok_live_response(payload):
   if "messages" not in payload or not payload["messages"]:
     raise ValueError("Payload must contain non-empty 'messages' field")
   
-  # Set required parameters for live mode
+  # Set required parameters for live mode without mutating caller's payload
+  payload = payload.copy()
   payload["search_parameters"] = {"mode": "on"}
   payload["model"] = GROK_MODEL
+
+  # Get API key and prepare request
+  response = requests.post(
+      GROK_API_ENDPOINT,
+      headers=headers,
+      json=api_payload,
+      timeout=30,
+  )
   
   # Get API key and prepare request
   api_key = get_api_key()
