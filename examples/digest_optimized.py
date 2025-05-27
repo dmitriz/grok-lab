@@ -54,6 +54,7 @@ def create_optimized_session():
     session = requests.Session()
     
     # Configure retry strategy
+    # Note: Using allowed_methods instead of method_whitelist as it's the current parameter name
     retry_strategy = Retry(
         total=3,
         status_forcelist=[429, 500, 502, 503, 504],
