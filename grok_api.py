@@ -79,14 +79,6 @@ def grok_live_response(payload):
   payload["model"] = GROK_MODEL
 
   # Get API key and prepare request
-  response = requests.post(
-      GROK_API_ENDPOINT,
-      headers=headers,
-      json=api_payload,
-      timeout=30,
-  )
-  
-  # Get API key and prepare request
   api_key = get_api_key()
   headers = {
     "Content-Type": "application/json",
