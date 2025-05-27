@@ -15,13 +15,12 @@ if ! command -v jq >/dev/null 2>&1; then
     echo "Error: jq is required but not installed"
     exit 1
 fi
-
-echo "Starting shell script news digest generation..."
-echo "API key loaded successfully"
-echo "Request payload created"
-echo "Making API request..."
-
-start_time=$(date +%s%N)
+if [[ "$(uname)" == "Darwin" ]]; then
+  # macOS doesn't support %N in date
+  start_time=$(date +%s)
+else
+  start_time=$(date +%s%N)
+fi
 
 curl -s https://api.x.ai/v1/chat/completions \
   -H "Content-Type: application/json" \
@@ -35,6 +34,17 @@ curl -s https://api.x.ai/v1/chat/completions \
   ],
   "search_parameters": {
     "mode": "auto"
+  },
+  "model": "grok-3-latest"
+}' | jq '.'
+
+if [[ "$(uname)" == "Darwin" ]]; then
+  end_time=$(date +%s)
+  duration=$(( (end_time - start_time) * 1000 ))
+else
+  end_time=$(date +%s%N)
+  duration=$(( (end_time - start_time) / 1000000 ))
+fi
   },
   "model": "grok-3-latest"
 }' | jq '.'
