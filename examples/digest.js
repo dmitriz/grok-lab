@@ -27,7 +27,13 @@ function loadKey(keyName, filePath) {
         }
         return null;
     } catch (error) {
-        return null;
+        // Only silently ignore file not found errors
+        if (error.code === 'ENOENT') {
+            return null;
+        }
+        // Log and rethrow other errors (permissions, corruption, etc.)
+        console.error(`Error reading file ${filePath}:`, error);
+        throw error;
     }
 }
 

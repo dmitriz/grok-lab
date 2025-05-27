@@ -46,20 +46,20 @@ GROK_API_KEY=your_api_key_here
 
 ## Development
 
-Use the build script to run tests and examples:
+Use the Makefile to run tests and examples:
 
 ```bash
 # Run all tests
-./build.sh test
+make test
 
 # Run example usage
-./build.sh example
+make example
 
 # Run both tests and example
-./build.sh all
+make all
 
 # Clean up cache files
-./build.sh clean
+make clean
 ```
 
 ## Testing
