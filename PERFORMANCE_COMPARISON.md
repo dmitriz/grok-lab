@@ -6,19 +6,19 @@ This document summarizes the performance comparison between different implementa
 
 ## Implementations Tested
 
-1. **Shell Script** (`digest.sh`) - Using curl and bash
-2. **JavaScript** (`digest.js`) - Using Node.js native HTTPS module
-3. **Python Original** (`digest.py`) - Using requests library with basic configuration
-4. **Python Optimized** (`digest_optimized.py`) - Using requests with connection pooling and retry strategies
+1. **JavaScript** (`digest.js`) - Using Node.js native HTTPS module
+2. **Python Original** (`digest.py`) - Using requests library with basic configuration
+3. **Python Optimized** (`digest_optimized.py`) - Using requests with connection pooling and retry strategies
+
+Note: The shell script implementation was removed due to dependency issues (requires `jq`) and inferior performance.
 
 ## Performance Results
 
 | Implementation | Execution Time | Performance Rank | Notes |
 |---------------|----------------|------------------|-------|
 | **Python Optimized** | ~0.9 seconds | 🥇 1st | Fastest with connection pooling |
-| **Shell Script** | ~22.2 seconds | 🥈 2nd | Simple and reliable |
-| **Python Original** | ~24.2 seconds | 🥉 3rd | Standard requests implementation |
-| **JavaScript** | ~32.8 seconds | 4th | Native HTTPS but slower startup |
+| **Python Original** | ~24.2 seconds | 🥈 2nd | Standard requests implementation |
+| **JavaScript** | ~32.8 seconds | 🥉 3rd | Native HTTPS but slower startup |
 
 ## Key Findings
 
@@ -32,27 +32,16 @@ This document summarizes the performance comparison between different implementa
   - Session-level configurations
 - **Reliability**: Most robust error handling
 
-### 🥈 Shell Script - Efficient and Simple
+### 🥈 Python Original - Standard Implementation
 
-- **Speed**: ~22 seconds (good baseline performance)
-- **Advantages**: 
-  - Minimal overhead
-  - Direct system calls
-  - Simple debugging
-- **Limitations**: 
-  - Limited error handling
-  - Depends on external tools (curl, jq)
-
-### 🥉 Python Original - Standard Implementation
-
-- **Speed**: ~24 seconds (similar to shell script)
+- **Speed**: ~24 seconds (good baseline performance)
 - **Characteristics**:
   - Basic requests configuration
   - No connection reuse
   - Standard timeout handling
 - **Use Case**: Good for simple, one-off requests
 
-### JavaScript - Feature-Rich but Slower
+### 🥉 JavaScript - Feature-Rich but Slower
 
 - **Speed**: ~33 seconds (slowest but still functional)
 - **Considerations**:
@@ -104,8 +93,8 @@ All implementations use the same secure approach:
 
 ### For Development/Testing
 
-- **Use Shell Script** (`digest.sh`) for quick testing and debugging
-- Simple to modify and understand
+- **Use Python Optimized** (`digest_optimized.py`) for best performance and reliability
+- **Use Python Original** (`digest.py`) for simple testing when optimizations aren't needed
 
 ### For Integration
 
@@ -120,7 +109,6 @@ make digest-performance
 
 # Run individual implementations
 make digest-optimized   # Python optimized (fastest)
-make digest-sh          # Shell script
 make digest-py          # Python original
 make digest-js          # JavaScript
 ```

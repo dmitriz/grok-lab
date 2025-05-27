@@ -47,16 +47,13 @@ scripts:
 digest-performance:
 	@echo "=== Performance Comparison: News Digest Implementations ==="
 	@echo ""
-	@echo "1. Shell Script (curl + bash):"
-	@time bash examples/digest.sh > /dev/null 2>&1 || echo "Shell script failed"
-	@echo ""
-	@echo "2. JavaScript (Node.js native HTTPS):"
+	@echo "1. JavaScript (Node.js native HTTPS):"
 	@time node examples/digest.js > /dev/null 2>&1 || echo "JavaScript script failed"
 	@echo ""
-	@echo "3. Python Original (requests):"
+	@echo "2. Python Original (requests):"
 	@time python examples/digest.py > /dev/null 2>&1 || echo "Python original script failed"
 	@echo ""
-	@echo "4. Python Optimized (requests with connection pooling):"
+	@echo "3. Python Optimized (requests with connection pooling):"
 	@time python examples/digest_optimized.py > /dev/null 2>&1 || echo "Python optimized script failed"
 	@echo ""
 	@echo "=== Performance comparison complete ==="
@@ -73,10 +70,6 @@ digest-optimized:
 digest-js:
 	@echo "Running JavaScript digest..."
 	node examples/digest.js
-
-digest-sh:
-	@echo "Running shell script digest..."
-	bash examples/digest.sh
 
 # Run both tests and examples
 all: test example scripts
